@@ -2,8 +2,7 @@
     stages {
         stage('vcs') {
             steps {
-                git url: '',
-                    branch: 'declarative'
+                git url: 'https://github.com/sekharc1230/Jenkins-practice.git',
             }
         }
         stage('package') {
