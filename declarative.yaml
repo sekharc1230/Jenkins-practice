@@ -1,24 +1,26 @@
-    triggers { cron ('H/15 * * * *') }
-    stages {
-        stage('vcs') {
-            steps {
-                git url: 'https://github.com/sekharc1230/Jenkins-practice.git',
-            }
-        }
-        stage('package') {
-            tools {
-                jdk 'JDK_8_UBUNTU'
-            }
-            steps {
-                sh 'mvn package'
-            }
-        }
-        stage('post build') {
-            steps {
-                archiveArtifacts artifacts: '**/target/gameoflife.war',
-                                 onlyIfSuccessful: true
-                junit testResults: '**/surefire-reports/TEST-*.xml'
-            }
-        }
-    }
+pipeline {
+   agent { label "java-app" }
+   triggers { cron ('H/15 * * * *') }
+   stages {
+      stage('vcs') {
+         steps {
+            git url: https://github.com/sekharc1230/Jenkins-practice.git
+         }
+      }
+      stage('package') {  
+         tools {
+            jdk 'java-17'
+         }
+         steps {
+            sh 'mvn package'
+         }
+      }
+      stage('post build') {
+         steps {
+            archiveArtifacts artifacts: '**/target/gameoflife.war',
+                            onlyIfSuccessful: true
+            junit testResults: '**/surefire-reports/TEST-*.xml'                
+         }
+      }
+   } 
 }
