@@ -1,5 +1,5 @@
 pipeline {
-   agent { label "java-app" }
+   agent { label "any" }
    triggers { cron ('H/15 * * * *') }
    stages {
       stage('vcs') {
