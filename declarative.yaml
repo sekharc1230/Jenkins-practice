@@ -1,6 +1,9 @@
 pipeline {
    agent any
    triggers { cron ('H/15 * * * *') }
+   parameters {
+      string(name: 'MAVEN_GOAL', defaultValue: 'staging', description: 'Maven Goal')
+   }
    stages {
       stage('vcs') {
          steps {
@@ -13,6 +16,7 @@ pipeline {
          }
          steps {
             sh 'mvn package'
+            sh "mvn ${params.MAVEN_GOAL}"
          }
       }
       stage('post build') {
